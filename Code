@@ -1,0 +1,102 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <HC_SR04.h>
+
+
+
+double cm = 0.0;
+double inches = 0.0;
+const int pResistor = A5; // Photoresistor at Arduino analog pin A0
+const int ledPin=D9;       // Led pin at Arduino pin 9
+
+//Variables
+int value;				  // Store value from photoresistor (0-1023)
+const int buzzer = D6;
+int trigPin = A0;
+int echoPin = D0;
+char Distance[4];
+int led = D4;
+// int led2= D6;
+int led1 = D5;
+
+
+HC_SR04 rangefinder = HC_SR04(trigPin, echoPin);
+
+void setup() 
+
+{
+        pinMode(ledPin, OUTPUT);  // Set lepPin - 9 pin as an output
+        pinMode(pResistor, INPUT);// Set pResistor - A0 pin as an input (optional)
+        pinMode(led,OUTPUT);
+        pinMode(led1,OUTPUT);
+        
+        pinMode(buzzer, OUTPUT);
+        digitalWrite(buzzer, LOW);
+}
+
+
+
+ 
+
+void loop() 
+{
+    cm = rangefinder.getDistanceCM();
+    inches = rangefinder.getDistanceInch();
+    delay(100);
+
+    sprintf(Distance, "%d", cm);
+    
+      //You can change value "25"
+  if (value > 25){
+    digitalWrite(ledPin, HIGH);  //Turn led off for PhotoResitor
+  }
+  else{
+    digitalWrite(ledPin, LOW); //Turn led on for PhotoResitor
+}
+    
+
+if(cm < 6){
+    
+        digitalWrite(led, HIGH);
+        digitalWrite(led1, LOW);
+     
+        digitalWrite(ledPin, LOW);
+        digitalWrite(buzzer, HIGH);
+        tone(buzzer, 10000); // Send 1KHz sound signal...
+        delay(1000);        // ...for 1 sec
+        tone(buzzer, 1000); // Send 1KHz sound signal...
+        delay(1000);        // ...for 1 se
+        
+        
+       
+        
+ }
+ 
+  else if( cm > 8 && cm < 16 ){
+   
+ 
+     
+        digitalWrite(led, LOW);
+        digitalWrite(led1, HIGH);
+        digitalWrite(buzzer, LOW);
+     
+        
+ }
+ 
+  else if(cm > 18 && cm < 24 ){
+      
+        digitalWrite(led, LOW);
+        digitalWrite(led1, LOW);
+        digitalWrite(buzzer, LOW);
+        
+     
+}
+    value = analogRead(pResistor);
+  
+
+
+
+
+    delay(100);
+
+
+}
