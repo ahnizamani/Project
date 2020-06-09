@@ -14,8 +14,6 @@ const int buzzer = D6;
 int trigPin = A0;
 int echoPin = D0;
 char Distance[4];
-int led = D4;
-// int led2= D6;
 int led1 = D5;
 
 
@@ -35,8 +33,6 @@ void setup()
 
 
 
- 
-
 void loop() 
 {
     cm = rangefinder.getDistanceCM();
@@ -45,6 +41,7 @@ void loop()
 
     sprintf(Distance, "%d", cm);
     
+     value = analogRead(pResistor);
       //You can change value "25"
   if (value > 25){
     digitalWrite(ledPin, HIGH);  //Turn led off for PhotoResitor
@@ -65,38 +62,16 @@ if(cm < 6){
         delay(1000);        // ...for 1 sec
         tone(buzzer, 1000); // Send 1KHz sound signal...
         delay(1000);        // ...for 1 se
-        
-        
-       
-        
+     
  }
  
   else if( cm > 8 && cm < 16 ){
-   
- 
      
         digitalWrite(led, LOW);
         digitalWrite(led1, HIGH);
         digitalWrite(buzzer, LOW);
-     
         
  }
- 
-  else if(cm > 18 && cm < 24 ){
-      
-        digitalWrite(led, LOW);
-        digitalWrite(led1, LOW);
-        digitalWrite(buzzer, LOW);
-        
-     
-}
-    value = analogRead(pResistor);
-  
-
-
-
-
+   
     delay(100);
-
-
 }
